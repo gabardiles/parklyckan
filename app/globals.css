@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   GT Walsheim — the parklyckan.com brand typeface (self-hosted).
+---------------------------------------------------------------- */
+
+@font-face {
+  font-family: "GT Walsheim";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/GT-Walsheim-Light.woff2") format("woff2"),
+    url("/fonts/GT-Walsheim-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT Walsheim";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/GT-Walsheim-Regular.woff2") format("woff2"),
+    url("/fonts/GT-Walsheim-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT Walsheim";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/GT-Walsheim-Medium.woff2") format("woff2"),
+    url("/fonts/GT-Walsheim-Medium.woff") format("woff");
+}
+
+/* ---------------------------------------------------------------
+   Parklyckan design tokens — matched to parklyckan.com
+   Deep navy-blue brand with gradients drawn from the evening
+   building render. Accent is a calm Scandinavian greyish-blue
+   slate (CTAs, säljläge, badges) — no orange anywhere.
+---------------------------------------------------------------- */
+
+:root {
+  --background: #ffffff;
+  --foreground: #18233a;
+
+  --card: #ffffff;
+  --card-foreground: #18233a;
+
+  --primary: #213253;
+  --primary-foreground: #ffffff;
+
+  --secondary: #eef1f7;
+  --secondary-foreground: #213253;
+
+  --muted: #eef1f7;
+  --muted-foreground: #5b6883;
+
+  --accent: #5a6e7e;
+  --accent-foreground: #ffffff;
+
+  /* Navy scale for gradients */
+  --navy: #2a4068;
+  --navy-deep: #0f1a2e;
+  --navy-glow: #244a78;
+
+  --destructive: #b3402f;
+  --border: #e2e6ef;
+  --input: #d3d9e6;
+  --ring: #2a4068;
+
+  /* legacy token kept so existing classes resolve — now navy */
+  --pine-deep: #0f1a2e;
+  --radius: 0.25rem;
+
+  --brand-gradient: linear-gradient(
+    135deg,
+    #16294a 0%,
+    #0f1a2e 52%,
+    #1d3a5f 100%
+  );
+  --brand-gradient-soft: linear-gradient(
+    135deg,
+    #243f66 0%,
+    #18294a 60%,
+    #29507f 100%
+  );
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-pine-deep: var(--pine-deep);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-glow: var(--navy-glow);
+
+  --font-sans: "GT Walsheim", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "GT Walsheim", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* ---------------------------------------------------------------
+   Brand gradients & silver treatment
+---------------------------------------------------------------- */
+
+.brand-gradient {
+  background-image: var(--brand-gradient);
+}
+
+.brand-gradient-soft {
+  background-image: var(--brand-gradient-soft);
+}
+
+/* subtle blue sheen used on dark sections */
+.brand-glow {
+  position: relative;
+}
+.brand-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 15% 0%,
+    rgba(41, 80, 127, 0.55) 0%,
+    rgba(15, 26, 46, 0) 60%
+  );
+  pointer-events: none;
+}
+
+/* metallic silver text (for headings/wordmarks on dark navy) */
+.text-silver {
+  background: linear-gradient(180deg, #ffffff 0%, #c7cdd9 48%, #aab2c1 56%, #eef1f6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
