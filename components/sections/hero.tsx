@@ -54,15 +54,15 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right — Säljläge availability meter */}
+          {/* Right — Säljläge availability meter (light card for contrast) */}
           <div className="w-full lg:max-w-md lg:justify-self-end">
-            <div className="rounded-lg border border-primary-foreground/15 bg-pine-deep/70 p-5 backdrop-blur-sm">
+            <div className="rounded-lg border border-black/5 bg-card/95 p-5 shadow-xl backdrop-blur-sm">
               <div className="flex items-baseline justify-between gap-4">
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground/70">
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
                   Säljläge
                 </span>
-                <span className="text-sm text-primary-foreground/85">
-                  <span className="font-display text-2xl text-accent">
+                <span className="text-sm text-foreground">
+                  <span className="font-display text-2xl text-primary">
                     {availability.remainingCount}
                   </span>{" "}
                   av {availability.total} kvar
@@ -71,9 +71,10 @@ export function Hero() {
               <Progress
                 value={soldPct}
                 label={`${availability.soldCount} av ${availability.total} lägenheter sålda`}
-                className="mt-3 bg-primary-foreground/15"
+                className="mt-3 bg-secondary"
+                barClassName="bg-primary"
               />
-              <p className="mt-2 text-xs text-primary-foreground/60">
+              <p className="mt-2 text-xs text-muted-foreground">
                 {availability.soldCount} sålda · uppdateras löpande
               </p>
             </div>
