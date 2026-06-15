@@ -18,7 +18,7 @@ export const SITE = {
   shortDescription:
     "Nyproduktion i Båstad — endast ett fåtal av 100 inflyttningsklara lägenheter kvar.",
   description:
-    "Nästan slutsålt! Ett fåtal av 100 topprustade, inflyttningsklara lägenheter finns kvar i Brf Parklyckan, Båstad. 44–141 m², 1,15–8,2 Mkr. Anmäl ditt intresse idag.",
+    "Nästan slutsålt! Ett fåtal av 100 topprustade, inflyttningsklara lägenheter finns kvar i Brf Parklyckan, Båstad. 51,5–71,7 m², 2,4–4,0 Mkr. Anmäl ditt intresse idag.",
   locale: "sv_SE",
   ogImage: "/og-image.jpg",
   address: {
@@ -29,7 +29,7 @@ export const SITE = {
     addressCountry: "SE",
   },
   geo: { latitude: 56.4256, longitude: 12.8517 },
-  priceRange: "1 150 000–8 200 000 kr",
+  priceRange: "2 404 700–3 987 750 kr",
   broker: {
     name: "Nadjafi & Kristensen Fastighetsförmedling",
     agent: "Djavad Kristensson",

@@ -15,29 +15,44 @@ export const availability = {
 };
 
 export type Apartment = {
-  id: string;
-  rooms: number;
-  sqm: number;
-  floor: number;
-  price: number;
-  highlight?: string;
+  id: string; // Bostad
+  rooms: number; // Rum
+  sqm: number; // Storlek, m²
+  floor: number; // Våning
+  price: number; // Pris, kr
+  fee: number; // Avgift, kr/mån
   status: "ledig" | "reserverad";
 };
 
-/** TODO: replace with the real remaining units from Nadjafi & Kristensen */
+/** Lediga lägenheter — hämtade från lägenhetsväljaren (Nadjafi & Kristensen). */
 export const remainingApartments: Apartment[] = [
-  { id: "A-1103", rooms: 2, sqm: 52, floor: 3, price: 1850000, highlight: "Balkong i väster", status: "ledig" },
-  { id: "A-1404", rooms: 3, sqm: 71, floor: 4, price: 2950000, highlight: "Genomgående planlösning", status: "ledig" },
-  { id: "B-1702", rooms: 3, sqm: 78, floor: 7, price: 3650000, highlight: "Havsglimt", status: "reserverad" },
-  { id: "B-1801", rooms: 4, sqm: 96, floor: 8, price: 4900000, highlight: "Hörnläge med dubbla balkonger", status: "ledig" },
-  { id: "A-1902", rooms: 4, sqm: 104, floor: 9, price: 5750000, highlight: "Utsikt över Laholmsbukten", status: "ledig" },
-  { id: "A-2001", rooms: 5, sqm: 141, floor: 10, price: 8200000, highlight: "Toppvåning", status: "ledig" },
+  { id: "1-1603", rooms: 2, sqm: 55.3, floor: 7, price: 2669800, fee: 3249, status: "ledig" },
+  { id: "1-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2555150, fee: 3255, status: "ledig" },
+  { id: "2-1603", rooms: 2, sqm: 51.5, floor: 7, price: 2453200, fee: 3026, status: "ledig" },
+  { id: "2-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2404700, fee: 3255, status: "ledig" },
+  { id: "2-1706", rooms: 2, sqm: 55.4, floor: 8, price: 2628200, fee: 3255, status: "ledig" },
+  { id: "2-1801", rooms: 3, sqm: 71.7, floor: 9, price: 3987750, fee: 4213, status: "ledig" },
+  { id: "2-1803", rooms: 2, sqm: 51.5, floor: 9, price: 2996750, fee: 3026, status: "ledig" },
+  { id: "2-1805", rooms: 3, sqm: 71.7, floor: 9, price: 3949900, fee: 4213, status: "ledig" },
+  { id: "2-1806", rooms: 2, sqm: 55.4, floor: 9, price: 2946650, fee: 3255, status: "ledig" },
 ];
+
+// Ranges derived from the available apartments — drive the key-facts block.
+const ledigaApts = remainingApartments.filter((a) => a.status === "ledig");
+const nfInt = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 });
+const nfDec = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 1 });
+const sqmVals = ledigaApts.map((a) => a.sqm);
+const priceVals = ledigaApts.map((a) => a.price);
+
+export const availablePriceMin = Math.min(...priceVals);
+export const availablePriceMax = Math.max(...priceVals);
+export const availableSizeRange = `${nfDec.format(Math.min(...sqmVals))}–${nfDec.format(Math.max(...sqmVals))} m²`;
+export const availablePriceRange = `${nfInt.format(availablePriceMin)} – ${nfInt.format(availablePriceMax)} kr`;
 
 export const facts = [
   { label: "Inflyttning", value: "Klart för inflytt" },
-  { label: "Storlek", value: "44–141 m²" },
-  { label: "Pris", value: "1 150 000 – 8 200 000 kr" },
+  { label: "Storlek", value: availableSizeRange },
+  { label: "Pris", value: availablePriceRange },
   { label: "Tillträde", value: "Enligt överenskommelse" },
   { label: "Antal lägenheter", value: "100 st" },
   { label: "Mäklare", value: "Nadjafi & Kristensen" },
@@ -86,6 +101,9 @@ export const slides: Slide[] = [
 export const formatPrice = (n: number) =>
   new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n) + " kr";
 
+export const formatSqm = (n: number) =>
+  new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 1 }).format(n) + " m²";
+
 /** Common buyer questions — drives the FAQ section and FAQPage schema. */
 export const faqs: { question: string; answer: string }[] = [
   {
@@ -99,8 +117,7 @@ export const faqs: { question: string; answer: string }[] = [
   },
   {
     question: "Vad kostar lägenheterna och hur stora är de?",
-    answer:
-      "Lägenheterna är mellan 44 och 141 m² (2–5 rum och kök) och priserna ligger mellan 1 150 000 kr och 8 200 000 kr.",
+    answer: `Lägenheterna som finns kvar är ${availableSizeRange} (2–3 rum och kök) och priserna ligger i intervallet ${availablePriceRange}.`,
   },
   {
     question: "När är inflyttning?",

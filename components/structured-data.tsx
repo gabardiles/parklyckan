@@ -1,5 +1,11 @@
 import { SITE, siteUrl, abs } from "@/lib/seo";
-import { availability, facts, faqs } from "@/data/site";
+import {
+  availability,
+  availablePriceMax,
+  availablePriceMin,
+  facts,
+  faqs,
+} from "@/data/site";
 import type { Article } from "@/data/articles";
 
 function JsonLd({ data }: { data: unknown }) {
@@ -58,8 +64,8 @@ export function HomeJsonLd() {
           priceSpecification: {
             "@type": "PriceSpecification",
             priceCurrency: "SEK",
-            minPrice: 1150000,
-            maxPrice: 8200000,
+            minPrice: availablePriceMin,
+            maxPrice: availablePriceMax,
           },
           itemOffered: { "@id": `${siteUrl}/#residence` },
         },

@@ -1,8 +1,13 @@
-import { BedDouble, Building2, Ruler } from "lucide-react";
+import { Building2, Ruler, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { availability, formatPrice, remainingApartments } from "@/data/site";
+import {
+  availability,
+  formatPrice,
+  formatSqm,
+  remainingApartments,
+} from "@/data/site";
 
 export function RemainingApartments() {
   return (
@@ -48,16 +53,15 @@ export function RemainingApartments() {
 
                 <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
-                    <Ruler className="size-4 text-primary" /> {apt.sqm} m²
+                    <Ruler className="size-4 text-primary" /> {formatSqm(apt.sqm)}
                   </li>
                   <li className="flex items-center gap-2">
                     <Building2 className="size-4 text-primary" /> Våning {apt.floor}
                   </li>
-                  {apt.highlight && (
-                    <li className="flex items-center gap-2">
-                      <BedDouble className="size-4 text-primary" /> {apt.highlight}
-                    </li>
-                  )}
+                  <li className="flex items-center gap-2">
+                    <Wallet className="size-4 text-primary" /> Avgift{" "}
+                    {formatPrice(apt.fee)}/mån
+                  </li>
                 </ul>
 
                 <div className="mt-6 flex items-end justify-between border-t border-border pt-4">
