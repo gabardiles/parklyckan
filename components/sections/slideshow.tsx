@@ -60,7 +60,7 @@ export function Slideshow() {
                   fill
                   sizes="(max-width: 1152px) 100vw, 1152px"
                   className="object-cover"
-                  priority={i === 0}
+                  loading="lazy"
                 />
               </div>
             ))}

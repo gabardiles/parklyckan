@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Building2, Play } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { availability } from "@/data/site";
 
@@ -9,18 +10,22 @@ import { availability } from "@/data/site";
  * parklyckan.com. Pick an apartment from the 3D facade and step into the
  * 360°-tours, floor plans and details for each unit.
  *
- * The official `buildings.3dvision.se/widget/js/loader.js` simply injects
- * an <iframe> for `data-id` and resizes it from postMessage("on_resize")
- * events. We replicate that here so it works reliably inside React.
+ * Loaded behind a click-to-load facade: the heavy third-party iframe (and
+ * its external JS/cookies) only loads on demand, keeping initial paint fast
+ * and free of third-party requests. The official loader just injects an
+ * iframe for `data-id` and resizes it via postMessage("on_resize"), which
+ * we replicate here.
  */
 const BUILDING_ID = "e53ee4e0-c91d-11eb-a401-113bbe15f89c";
 const WIDGET_SRC = `https://buildings.3dvision.se/projects/view/${BUILDING_ID}`;
 
 export function ApartmentSelector() {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const [loaded, setLoaded] = useState(false);
   const [height, setHeight] = useState(900);
 
   useEffect(() => {
+    if (!loaded) return;
     function onMessage(event: MessageEvent) {
       try {
         const data =
@@ -34,7 +39,7 @@ export function ApartmentSelector() {
     }
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [loaded]);
 
   return (
     <section id="lagenhetsvaljaren" className="scroll-mt-24 bg-background">
@@ -53,18 +58,44 @@ export function ApartmentSelector() {
           </p>
         </div>
 
-        <div data-reveal className="mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-          <iframe
-            ref={frameRef}
-            src={WIDGET_SRC}
-            title="Parklyckan – lägenhetsväljare och 360°-vyer"
-            loading="lazy"
-            allowFullScreen
-            style={{ width: "100%", height, border: "none" }}
-          />
+        <div
+          data-reveal
+          className="mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm"
+        >
+          {loaded ? (
+            <iframe
+              ref={frameRef}
+              src={WIDGET_SRC}
+              title="Parklyckan – lägenhetsväljare och 360°-vyer"
+              allowFullScreen
+              style={{ width: "100%", height, border: "none" }}
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setLoaded(true)}
+              aria-label="Öppna lägenhetsväljaren i 3D"
+              className="brand-gradient brand-glow group flex aspect-[16/10] w-full flex-col items-center justify-center gap-5 p-8 text-center sm:aspect-[16/7]"
+            >
+              <span className="relative grid size-16 place-items-center rounded-full bg-white/10 ring-1 ring-white/25 transition-transform group-hover:scale-105">
+                <Building2 className="size-7 text-white" />
+                <span className="absolute -bottom-1 -right-1 grid size-7 place-items-center rounded-full bg-accent text-white">
+                  <Play className="size-3.5 translate-x-px fill-current" />
+                </span>
+              </span>
+              <span className="relative max-w-md">
+                <span className="block font-display text-xl font-light text-white sm:text-2xl">
+                  Öppna lägenhetsväljaren
+                </span>
+                <span className="mt-1 block text-sm text-white/70">
+                  Interaktiv 3D-modell med planlösningar och 360°-vyer
+                </span>
+              </span>
+            </button>
+          )}
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Tjänsten tillhandahålls av 3D Vision. Laddar inte väljaren?{" "}
+          Tjänsten tillhandahålls av 3D Vision.{" "}
           <a
             href={WIDGET_SRC}
             target="_blank"

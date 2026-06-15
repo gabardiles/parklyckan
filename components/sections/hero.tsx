@@ -58,7 +58,7 @@ export function Hero() {
           <div className="w-full lg:max-w-md lg:justify-self-end">
             <div className="glass-light rounded-lg border border-white/40 p-5 shadow-xl">
               <div className="flex items-baseline justify-between gap-4">
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-secondary-foreground">
                   Säljläge
                 </span>
                 <span className="text-sm text-foreground">
@@ -74,7 +74,7 @@ export function Hero() {
                 className="mt-3 bg-secondary"
                 barClassName="bg-primary"
               />
-              <p className="mt-2 text-xs text-muted-foreground">
+              <p className="mt-2 text-xs text-secondary-foreground/90">
                 {availability.soldCount} sålda · uppdateras löpande
               </p>
             </div>
