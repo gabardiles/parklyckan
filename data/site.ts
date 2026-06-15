@@ -8,7 +8,7 @@
 
 export const availability = {
   total: 100,
-  soldCount: 93, // TODO: verify actual number with mäklaren
+  soldCount: 91, // 9 lediga — verifieras löpande med mäklaren
   get remainingCount() {
     return this.total - this.soldCount;
   },
@@ -108,9 +108,9 @@ export const faqs: { question: string; answer: string }[] = [
       "Lägenheterna är färdigställda och inflyttningsklara. Tillträde sker enligt överenskommelse med mäklaren.",
   },
   {
-    question: "Kan jag utforska lägenheterna på sidan?",
+    question: "Kan jag se ritningar till lägenheterna?",
     answer:
-      "Ja. Via lägenhetsväljaren kan du klicka dig fram på fasaden och jämföra planlösningar för varje lägenhet.",
+      "Ja. Ritningarna finns i lägenhetsväljaren — klicka dig in på en lägenhet så ser du planlösningen.",
   },
   {
     question: "Vem är mäklare för Parklyckan?",
