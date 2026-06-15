@@ -10,19 +10,39 @@ import { availability } from "@/data/site";
  * parklyckan.com. Pick an apartment from the 3D facade and step into the
  * 360°-tours, floor plans and details for each unit.
  *
- * Loaded behind a click-to-load facade: the heavy third-party iframe (and
- * its external JS/cookies) only loads on demand, keeping initial paint fast
- * and free of third-party requests. The official loader just injects an
- * iframe for `data-id` and resizes it via postMessage("on_resize"), which
- * we replicate here.
+ * The heavy third-party iframe (and its external JS/cookies) is deferred:
+ * it auto-loads once the section scrolls into view (IntersectionObserver),
+ * so it never weighs down the initial paint. The button is a fallback for
+ * browsers without IntersectionObserver / JS. The official loader just
+ * injects an iframe for `data-id` and resizes it via postMessage, which we
+ * replicate here.
  */
 const BUILDING_ID = "e53ee4e0-c91d-11eb-a401-113bbe15f89c";
 const WIDGET_SRC = `https://buildings.3dvision.se/projects/view/${BUILDING_ID}`;
 
 export function ApartmentSelector() {
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [height, setHeight] = useState(900);
+
+  // Auto-load when the widget scrolls into view.
+  useEffect(() => {
+    if (loaded) return;
+    const el = containerRef.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setLoaded(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [loaded]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -59,6 +79,7 @@ export function ApartmentSelector() {
         </div>
 
         <div
+          ref={containerRef}
           data-reveal
           className="mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm"
         >
