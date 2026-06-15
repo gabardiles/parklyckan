@@ -108,9 +108,9 @@ export const faqs: { question: string; answer: string }[] = [
       "Lägenheterna är färdigställda och inflyttningsklara. Tillträde sker enligt överenskommelse med mäklaren.",
   },
   {
-    question: "Kan jag se lägenheterna i 3D och 360°?",
+    question: "Kan jag utforska lägenheterna på sidan?",
     answer:
-      "Ja. Via lägenhetsväljaren på sidan kan du utforska huset i 3D, jämföra planlösningar och kliva in i 360°-vyer för varje lägenhet.",
+      "Ja. Via lägenhetsväljaren kan du klicka dig fram på fasaden och jämföra planlösningar för varje lägenhet.",
   },
   {
     question: "Vem är mäklare för Parklyckan?",

@@ -7,8 +7,8 @@ import { availability } from "@/data/site";
 
 /**
  * Lägenhetsväljaren — the interactive 3D Vision building widget from
- * parklyckan.com. Pick an apartment from the 3D facade and step into the
- * 360°-tours, floor plans and details for each unit.
+ * parklyckan.com. Pick an apartment from the facade to compare floor
+ * plans and details for each unit.
  *
  * The heavy third-party iframe (and its external JS/cookies) is deferred:
  * it auto-loads once the section scrolls into view (IntersectionObserver),
@@ -69,11 +69,11 @@ export function ApartmentSelector() {
             Lägenhetsväljaren
           </Badge>
           <h2 className="font-display text-3xl font-light leading-tight sm:text-5xl">
-            Utforska huset i 3D
+            Utforska huset
           </h2>
           <p className="mt-4 text-muted-foreground sm:text-lg">
-            Klicka dig fram på fasaden, jämför planlösningar och kliv in i
-            360°-vyer för varje lägenhet. Av {availability.total} lägenheter är{" "}
+            Klicka dig fram på fasaden och jämför planlösningar för varje
+            lägenhet. Av {availability.total} lägenheter är{" "}
             {availability.remainingCount} fortfarande lediga.
           </p>
         </div>
@@ -87,7 +87,7 @@ export function ApartmentSelector() {
             <iframe
               ref={frameRef}
               src={WIDGET_SRC}
-              title="Parklyckan – lägenhetsväljare och 360°-vyer"
+              title="Parklyckan – lägenhetsväljare"
               allowFullScreen
               style={{ width: "100%", height, border: "none" }}
             />
@@ -95,7 +95,7 @@ export function ApartmentSelector() {
             <button
               type="button"
               onClick={() => setLoaded(true)}
-              aria-label="Öppna lägenhetsväljaren i 3D"
+              aria-label="Öppna lägenhetsväljaren"
               className="brand-gradient brand-glow group flex aspect-[16/10] w-full flex-col items-center justify-center gap-5 p-8 text-center sm:aspect-[16/7]"
             >
               <span className="relative grid size-16 place-items-center rounded-full bg-white/10 ring-1 ring-white/25 transition-transform group-hover:scale-105">
@@ -109,7 +109,7 @@ export function ApartmentSelector() {
                   Öppna lägenhetsväljaren
                 </span>
                 <span className="mt-1 block text-sm text-white/70">
-                  Interaktiv 3D-modell med planlösningar och 360°-vyer
+                  Interaktiv modell med planlösningar
                 </span>
               </span>
             </button>
