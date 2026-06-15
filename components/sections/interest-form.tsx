@@ -21,7 +21,7 @@ export function InterestForm() {
   return (
     <section id="formular" className="brand-gradient scroll-mt-20 text-primary-foreground">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-[1fr_1.1fr]">
-        <div>
+        <div data-reveal>
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Intresseanmälan
           </p>
@@ -54,6 +54,8 @@ export function InterestForm() {
         ) : (
           <form
             onSubmit={handleSubmit}
+            data-reveal
+            style={{ transitionDelay: "120ms" }}
             className="grid gap-5 rounded-lg border border-primary-foreground/15 bg-background p-6 text-foreground sm:grid-cols-2 sm:p-8"
           >
             <div className="grid gap-2 sm:col-span-2">

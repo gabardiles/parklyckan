@@ -25,7 +25,7 @@ export function Slideshow() {
   return (
     <section id="interior" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-2xl">
+        <div data-reveal className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Interiör
           </p>
@@ -39,6 +39,7 @@ export function Slideshow() {
         </div>
 
         <div
+          data-reveal
           className="group relative mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}

@@ -17,7 +17,7 @@ export function FeatureSplit({
   reverse?: boolean;
 }) {
   return (
-    <div className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
+    <div data-reveal className="grid items-center gap-8 md:grid-cols-2 md:gap-14">
       <div
         className={cn(
           "relative aspect-[4/3] overflow-hidden rounded-lg",

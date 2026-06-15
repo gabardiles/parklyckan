@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { SITE, siteUrl } from "@/lib/seo";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import "./globals.css";
 
 const title = "Parklyckan | Nyproduktion Båstad — endast ett fåtal lägenheter kvar";
@@ -73,7 +74,13 @@ export default function RootLayout({
         type="font/woff2"
         crossOrigin="anonymous"
       />
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+        {children}
+        <ScrollReveal />
+      </body>
     </html>
   );
 }

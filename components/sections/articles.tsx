@@ -8,7 +8,7 @@ export function Articles() {
   return (
     <section id="nyheter" className="scroll-mt-24 bg-secondary/50">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-2xl">
+        <div data-reveal className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Nyheter
           </p>
@@ -22,10 +22,12 @@ export function Articles() {
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
+          {articles.map((article, i) => (
             <Link
               key={article.slug}
               href={`/nyheter/${article.slug}`}
+              data-reveal
+              style={{ transitionDelay: `${i * 80}ms` }}
               className="group"
             >
               <Card className="h-full overflow-hidden border-border transition-shadow hover:shadow-md">

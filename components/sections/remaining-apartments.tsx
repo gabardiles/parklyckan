@@ -8,7 +8,7 @@ export function RemainingApartments() {
   return (
     <section id="lagenheter" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-2xl">
+        <div data-reveal className="max-w-2xl">
           <Badge variant="accent" className="mb-5">
             <span className="size-1.5 animate-pulse rounded-full bg-accent-foreground" />
             Endast {availability.remainingCount} kvar
@@ -24,9 +24,11 @@ export function RemainingApartments() {
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {remainingApartments.map((apt) => (
+          {remainingApartments.map((apt, i) => (
             <Card
               key={apt.id}
+              data-reveal
+              style={{ transitionDelay: `${i * 70}ms` }}
               className="group relative overflow-hidden transition-shadow hover:shadow-md"
             >
               <CardContent className="p-6">

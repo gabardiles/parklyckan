@@ -5,7 +5,7 @@ export function Quality() {
   return (
     <section id="kvalitet" className="scroll-mt-20 bg-background">
       <div className="mx-auto max-w-6xl space-y-20 px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-2xl">
+        <div data-reveal className="max-w-2xl">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Kvalitet
           </p>

@@ -19,7 +19,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="brand-gradient sticky top-0 z-50 border-b border-white/10">
+    <header className="glass-dark sticky top-0 z-50 border-b border-white/10">
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" aria-label="Parklyckan – till startsidan" className="drop-shadow-sm">
           <Image

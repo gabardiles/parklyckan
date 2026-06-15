@@ -56,7 +56,7 @@ export function Hero() {
 
           {/* Right — Säljläge availability meter (light card for contrast) */}
           <div className="w-full lg:max-w-md lg:justify-self-end">
-            <div className="rounded-lg border border-black/5 bg-card/95 p-5 shadow-xl backdrop-blur-sm">
+            <div className="glass-light rounded-lg border border-white/40 p-5 shadow-xl">
               <div className="flex items-baseline justify-between gap-4">
                 <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
                   Säljläge

@@ -7,7 +7,7 @@ export function Partners() {
     <section className="bg-card">
       <div className="mx-auto grid max-w-6xl gap-14 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-2">
         {/* Mäklare */}
-        <div className="flex flex-col">
+        <div data-reveal className="flex flex-col">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Mäklare
           </p>
@@ -46,7 +46,7 @@ export function Partners() {
         </div>
 
         {/* Byggherre */}
-        <div className="flex flex-col">
+        <div data-reveal style={{ transitionDelay: "100ms" }} className="flex flex-col">
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.22em] text-accent">
             Byggherre
           </p>

@@ -39,7 +39,7 @@ export function ApartmentSelector() {
   return (
     <section id="lagenhetsvaljaren" className="scroll-mt-24 bg-background">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-        <div className="max-w-2xl">
+        <div data-reveal className="max-w-2xl">
           <Badge variant="muted" className="mb-5">
             Lägenhetsväljaren
           </Badge>
@@ -53,7 +53,7 @@ export function ApartmentSelector() {
           </p>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        <div data-reveal className="mt-10 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
           <iframe
             ref={frameRef}
             src={WIDGET_SRC}
