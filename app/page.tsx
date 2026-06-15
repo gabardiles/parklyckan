@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <HomeJsonLd />
       <AnnouncementBar />
-      <SiteHeader />
+      <SiteHeader glass />
       <main>
         <Hero />
         <KeyFacts />

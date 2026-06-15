@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -15,11 +15,33 @@ const nav = [
   { href: "/#nyheter", label: "Nyheter" },
 ];
 
-export function SiteHeader() {
+/**
+ * `glass` should be set on pages that render a dark hero *behind* the
+ * header (the homepage). The header then frosts the hero while pinned at
+ * the top, and turns into the solid brand gradient once you scroll past it
+ * — so it never sits washed-out over light content.
+ */
+export function SiteHeader({ glass = false }: { glass?: boolean }) {
   const [open, setOpen] = useState(false);
+  const [atTop, setAtTop] = useState(true);
+
+  useEffect(() => {
+    if (!glass) return;
+    const onScroll = () => setAtTop(window.scrollY < 48);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [glass]);
+
+  const frosted = glass && atTop && !open;
 
   return (
-    <header className="glass-dark sticky top-0 z-50 border-b border-white/10">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-white/10 transition-colors duration-300",
+        frosted ? "glass-dark" : "brand-gradient"
+      )}
+    >
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" aria-label="Parklyckan – till startsidan" className="drop-shadow-sm">
           <Image

@@ -154,15 +154,42 @@ body {
    glass-dark: light text on top (header, dark hero card).
    glass-light: dark text on top. */
 .glass-dark {
-  background-color: rgba(16, 27, 47, 0.78);
-  backdrop-filter: blur(28px) saturate(150%);
-  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  background-color: rgba(16, 27, 47, 0.6);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  /* glass edge: subtle top sheen */
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
 }
 
 .glass-light {
-  background-color: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  background-color: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  /* glass edge: bright top highlight + soft elevation */
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
+    0 12px 40px -12px rgba(8, 15, 30, 0.55);
+}
+
+/* Hero photo overlay — keeps the left/centre dark for legible copy
+   while leaving the bottom-right (behind the Säljläge card) and the
+   top (behind the header) light enough for the glass to actually
+   frost the building render. */
+.hero-overlay {
+  background:
+    linear-gradient(
+      to right,
+      rgba(15, 26, 46, 0.86) 0%,
+      rgba(15, 26, 46, 0.55) 38%,
+      rgba(15, 26, 46, 0.18) 72%,
+      rgba(15, 26, 46, 0.28) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(15, 26, 46, 0.5) 0%,
+      rgba(15, 26, 46, 0.32) 45%,
+      rgba(15, 26, 46, 0.18) 100%
+    );
 }
 
 /* ---------------------------------------------------------------

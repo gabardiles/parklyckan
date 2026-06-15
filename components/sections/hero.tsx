@@ -8,7 +8,7 @@ export function Hero() {
   const soldPct = (availability.soldCount / availability.total) * 100;
 
   return (
-    <section className="relative isolate bg-pine-deep">
+    <section className="relative isolate -mt-[116px] bg-pine-deep">
       <div className="absolute inset-0 -z-10">
         <Image
           src={images.hero}
@@ -19,10 +19,10 @@ export function Hero() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-pine-deep via-pine-deep/55 to-pine-deep/25" />
+        <div className="hero-overlay absolute inset-0" />
       </div>
 
-      <div className="mx-auto flex min-h-[82svh] max-w-6xl flex-col justify-end px-4 pb-12 pt-24 sm:px-6 sm:pb-16">
+      <div className="mx-auto flex min-h-[88svh] max-w-6xl flex-col justify-end px-4 pb-12 pt-[140px] sm:px-6 sm:pb-16">
         <h1 className="font-display text-4xl font-light leading-[1.08] text-primary-foreground sm:text-6xl lg:text-7xl">
           Ett fåtal lägenheter kvar.
           <br />
