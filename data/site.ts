@@ -8,7 +8,7 @@
 
 export const availability = {
   total: 100,
-  soldCount: 91, // 9 lediga — verifieras löpande med mäklaren
+  soldCount: 92, // 8 lediga — verifieras löpande med mäklaren
   get remainingCount() {
     return this.total - this.soldCount;
   },
@@ -33,7 +33,6 @@ export const remainingApartments: Apartment[] = [
   { id: "2-1706", rooms: 2, sqm: 55.4, floor: 8, price: 2628200, fee: 3255, status: "ledig" },
   { id: "2-1801", rooms: 3, sqm: 71.7, floor: 9, price: 3987750, fee: 4213, status: "ledig" },
   { id: "2-1803", rooms: 2, sqm: 51.5, floor: 9, price: 2996750, fee: 3026, status: "ledig" },
-  { id: "2-1805", rooms: 3, sqm: 71.7, floor: 9, price: 3949900, fee: 4213, status: "ledig" },
   { id: "2-1806", rooms: 2, sqm: 55.4, floor: 9, price: 2946650, fee: 3255, status: "ledig" },
 ];
 
