@@ -45,10 +45,14 @@ export const SITE = {
       addressLocality: "Båstad",
     },
   },
-  /** Every interest form submission goes to the broker, with a copy to the client. */
+  /**
+   * Mottagare av intresseanmälningar i produktion: mäklaren, kopia till
+   * föreningens kontaktperson och dold kopia till webbplatsansvarig.
+   */
   interestForm: {
-    to: "bastad@notar.se",
-    cc: "daniel@akselson.com",
+    to: ["bastad@notar.se"],
+    cc: ["daniel@akselson.com"],
+    bcc: ["gabriel@ardiles.se"],
   },
   developer: { name: "Wennerholms", url: "https://www.wennerholms.se/" },
   sameAs: ["https://www.instagram.com/brf_parklyckan/"],
