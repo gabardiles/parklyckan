@@ -45,8 +45,13 @@ Formuläret postar till `app/api/intresse/route.ts`, som:
 1. **Sparar anmälan i Postgres** (tabellen `interest_submissions`). Tabellen
    skapas automatiskt vid första anropet, ingen manuell migrering behövs.
 2. **Mejlar mäklaren via [Resend](https://resend.com).** I produktion går mejlet
-   till `bastad@notar.se` med kopia till `daniel@akselson.com`
-   (`SITE.interestForm` i `lib/seo.ts`). Reply-To är den som anmält sig.
+   till `bastad@notar.se`, kopia till `daniel@akselson.com` och dold kopia till
+   `gabriel@ardiles.se` (`SITE.interestForm` i `lib/seo.ts`). Reply-To är den
+   som anmält sig.
+
+   **Testa live:** skicka formuläret med en av mottagarnas egna adresser som
+   e-post. Mejlet går då bara till den adressen, märkt `[TEST]`, och mäklaren
+   störs inte.
 
 Anmälan räknas som mottagen om minst en av kanalerna lyckas. Ett misslyckat
 mejl syns i admin och kan skickas om därifrån. Preview och lokalt mejlar

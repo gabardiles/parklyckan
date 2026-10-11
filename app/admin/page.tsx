@@ -199,7 +199,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Search
 
         <p className="mt-10 text-xs text-muted-foreground">
           {recipients
-            ? `Mejlnotiser går till ${recipients.to.join(", ")}${recipients.cc.length ? `, kopia ${recipients.cc.join(", ")}` : ""}.`
+            ? `Mejlnotiser går till ${recipients.to.join(", ")}${recipients.cc.length ? `, kopia ${recipients.cc.join(", ")}` : ""}${recipients.bcc.length ? `, dold kopia ${recipients.bcc.join(", ")}` : ""}.`
             : "Inga mejlmottagare i den här miljön."}{" "}
           Visar högst 500 anmälningar. CSV-exporten innehåller alla.
         </p>

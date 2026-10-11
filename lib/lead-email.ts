@@ -10,21 +10,38 @@ function addresses(value: string | undefined) {
     .filter(Boolean);
 }
 
+export type Recipients = { to: string[]; cc: string[]; bcc: string[]; test: boolean };
+
+const internalAddresses = (): string[] =>
+  [...SITE.interestForm.to, ...SITE.interestForm.cc, ...SITE.interestForm.bcc].map((a) =>
+    a.toLowerCase(),
+  );
+
 /**
  * Vem som får mejlnotisen.
  *
  * - INTEREST_NOTIFICATION_TO (kommaseparerad) ersätter standardmottagarna.
  *   Används lokalt och i preview så att tester inte når mäklaren.
- * - Annars, bara i produktion: mäklaren med kopia enligt SITE.interestForm.
+ * - Annars, bara i produktion: SITE.interestForm (to, cc, bcc).
+ *   Anmäler sig någon av mottagarna själv med sin egen adress är det ett
+ *   test: mejlet går då bara till den adressen, märkt [TEST].
  * - Preview/utveckling utan override: inget mejl, anmälan sparas ändå.
  */
-export function notificationRecipients(): { to: string[]; cc: string[] } | null {
+export function notificationRecipients(leadEmail?: string): Recipients | null {
   const override = addresses(process.env.INTEREST_NOTIFICATION_TO);
-  if (override.length) return { to: override, cc: [] };
-  if (process.env.VERCEL_ENV === "production") {
-    return { to: [SITE.interestForm.to], cc: [SITE.interestForm.cc] };
+  if (override.length) return { to: override, cc: [], bcc: [], test: false };
+  if (process.env.VERCEL_ENV !== "production") return null;
+
+  const email = leadEmail?.trim().toLowerCase();
+  if (email && internalAddresses().includes(email)) {
+    return { to: [email], cc: [], bcc: [], test: true };
   }
-  return null;
+  return {
+    to: [...SITE.interestForm.to],
+    cc: [...SITE.interestForm.cc],
+    bcc: [...SITE.interestForm.bcc],
+    test: false,
+  };
 }
 
 /** Saknade inställningar, för admin-sidans statusrad. Tom lista = allt klart. */
@@ -60,7 +77,7 @@ export async function sendLeadNotification(lead: LeadInput, id: number | null): 
   const missing = missingEmailConfig();
   if (missing.length) return { ok: false, error: `E-post ej konfigurerad: ${missing.join(", ")} saknas` };
 
-  const recipients = notificationRecipients()!;
+  const recipients = notificationRecipients(lead.email)!;
   const table = rows(lead);
   const adminUrl = `${siteUrl}/admin`;
   const ref = id === null ? "" : ` #${id}`;
@@ -97,8 +114,9 @@ ${id === null ? "" : `<p style="color:#9ca3af;font-size:12px">Anmälan${ref} · 
         from: process.env.INTEREST_FORM_FROM,
         to: recipients.to,
         cc: recipients.cc.length ? recipients.cc : undefined,
+        bcc: recipients.bcc.length ? recipients.bcc : undefined,
         reply_to: lead.email,
-        subject: `Intresseanmälan Parklyckan – ${lead.name}`,
+        subject: `${recipients.test ? "[TEST] " : ""}Intresseanmälan Parklyckan – ${lead.name}`,
         text,
         html,
       }),
