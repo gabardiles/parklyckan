@@ -32,24 +32,41 @@ Allt redigerbart innehåll ligger i `data/site.ts`:
 
 ## Att göra innan lansering
 
-- [ ] Sätt env-variablerna för intresseformuläret i Vercel (se nedan)
+- [ ] Lägg till Neon och sätt env-variablerna för formuläret och admin i Vercel (se nedan)
 - [ ] Verifiera faktiskt antal sålda/kvarvarande lägenheter
 - [ ] Egna bildfiler istället för hotlinks
 - [ ] GTM/analytics om det ska behållas
 - [ ] Undersidor: Våra lägenheter, Webbkamera, Personuppgiftspolicy
 
-## Intresseformuläret
+## Intresseformuläret och admin
 
-Formuläret postar till `app/api/intresse/route.ts`, som skickar e-post via
-[Resend](https://resend.com). Mottagare styrs i `lib/seo.ts`
-(`SITE.interestForm`): till `bastad@notar.se`, kopia till
-`daniel@akselson.com`. Svar går direkt till den som anmält sig (Reply-To).
+Formuläret postar till `app/api/intresse/route.ts`, som:
 
-Env-variabler (Vercel → Settings → Environment Variables):
+1. **Sparar anmälan i Postgres** (tabellen `interest_submissions`). Tabellen
+   skapas automatiskt vid första anropet, ingen manuell migrering behövs.
+2. **Mejlar mäklaren via [Resend](https://resend.com).** I produktion går mejlet
+   till `bastad@notar.se` med kopia till `daniel@akselson.com`
+   (`SITE.interestForm` i `lib/seo.ts`). Reply-To är den som anmält sig.
 
-- `RESEND_API_KEY` — API-nyckel från Resend.
-- `INTEREST_FORM_FROM` — avsändare på en domän verifierad i Resend,
-  t.ex. `Parklyckan <intresse@parklyckan.se>`.
+Anmälan räknas som mottagen om minst en av kanalerna lyckas. Ett misslyckat
+mejl syns i admin och kan skickas om därifrån. Preview och lokalt mejlar
+aldrig mäklaren, om inte `INTEREST_NOTIFICATION_TO` är satt.
 
-Saknas någon av dem svarar API:t 503 och formuläret visar ett felmeddelande
-med mäklarens e-postadress.
+### Admin: `/admin`
+
+Lösenordsskyddad lista över alla anmälningar: status (Ny, Kontaktad, Klar,
+Skräp), anteckningar, sök, CSV-export för Excel, skicka om mejl och radera
+(t.ex. när någon återkallar sitt samtycke).
+
+### Env-variabler (Vercel → Settings → Environment Variables)
+
+| Variabel | Krävs | Beskrivning |
+|---|---|---|
+| `DATABASE_URL` | Ja | Sätts automatiskt när Neon läggs till under Vercel → Storage. |
+| `ADMIN_PASSWORD` | Ja | Lösenord till `/admin`, minst 10 tecken. Byte loggar ut alla. |
+| `RESEND_API_KEY` | För mejl | API-nyckel från Resend. |
+| `INTEREST_FORM_FROM` | För mejl | Avsändare på en domän verifierad i Resend, t.ex. `Parklyckan <no-reply@polarweb.se>`. |
+| `INTEREST_NOTIFICATION_TO` | Nej | Ersätter mottagarna (kommaseparerad). Använd lokalt och i preview. |
+
+Se `.env.example`. Lokalt räcker en lokal Postgres:
+`createdb parklyckan` och `DATABASE_URL=postgres://<user>@localhost:5432/parklyckan`.

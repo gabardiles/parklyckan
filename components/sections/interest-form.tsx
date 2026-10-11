@@ -12,6 +12,7 @@ import { SITE } from "@/lib/seo";
 
 export function InterestForm() {
   const [status, setStatus] = React.useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,13 +27,20 @@ export function InterestForm() {
     };
 
     setStatus("sending");
+    setErrorMessage(null);
     try {
       const res = await fetch("/api/intresse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      setStatus(res.ok ? "sent" : "error");
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+      const data = await res.json().catch(() => null);
+      setErrorMessage(typeof data?.error === "string" ? data.error : null);
+      setStatus("error");
     } catch {
       setStatus("error");
     }
@@ -147,16 +155,23 @@ export function InterestForm() {
               </span>
             </label>
             {status === "error" && (
-              <p role="alert" className="text-sm text-destructive sm:col-span-2">
-                Något gick fel och anmälan kunde inte skickas. Försök igen eller
-                mejla{" "}
-                <a
-                  href={`mailto:${SITE.broker.officeEmail}`}
-                  className="underline underline-offset-4"
-                >
-                  {SITE.broker.officeEmail}
-                </a>
-                .
+              <p
+                role="alert"
+                className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive sm:col-span-2"
+              >
+                {errorMessage ?? (
+                  <>
+                    Något gick fel och anmälan kunde inte skickas. Försök igen eller
+                    mejla{" "}
+                    <a
+                      href={`mailto:${SITE.broker.officeEmail}`}
+                      className="underline underline-offset-4"
+                    >
+                      {SITE.broker.officeEmail}
+                    </a>
+                    .
+                  </>
+                )}
               </p>
             )}
             <Button
