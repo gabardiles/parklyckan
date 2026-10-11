@@ -24,7 +24,7 @@ export type Apartment = {
   status: "ledig" | "reserverad";
 };
 
-/** Lediga lägenheter — hämtade från lägenhetsväljaren (Nadjafi & Kristensen). */
+/** Lediga lägenheter — hämtade från lägenhetsväljaren. */
 export const remainingApartments: Apartment[] = [
   { id: "1-1603", rooms: 2, sqm: 55.3, floor: 7, price: 2669800, fee: 3249, status: "ledig" },
   { id: "1-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2555150, fee: 3255, status: "ledig" },
@@ -54,7 +54,7 @@ export const facts = [
   { label: "Pris", value: availablePriceRange },
   { label: "Tillträde", value: "Enligt överenskommelse" },
   { label: "Antal lägenheter", value: "100 st" },
-  { label: "Mäklare", value: "Nadjafi & Kristensen" },
+  { label: "Mäklare", value: "Notar Båstad" },
 ];
 
 /**
@@ -75,12 +75,10 @@ export const images = {
   dinner: `${IMG}/middag2.original.jpg`,
   bike: `${IMG}/cykel_3.original.jpg`,
   balcony: `${IMG}/balkong_parklyckan.original.jpg`,
-  broker: `${IMG}/djavad.original.original.jpg`,
+  broker: `${IMG}/johan-svahn-notar.jpg`,
   wennerholms: `${IMG}/wennerholms.original.jpg`,
   logoWhite: "/logos/logo_white.svg",
   logoSilver: "/logos/logo_silver.svg",
-  nkfastBlack: "/logos/nkf_black.svg",
-  nkfastWhite: "/logos/nkf_white.svg",
   wennerholmsLogo: "/logos/wennerholms.svg",
 };
 
@@ -131,6 +129,6 @@ export const faqs: { question: string; answer: string }[] = [
   {
     question: "Vem är mäklare för Parklyckan?",
     answer:
-      "Nadjafi & Kristensen Fastighetsförmedling ansvarar för försäljningen. Kontakta Djavad Kristensson på 0735-29 39 00 eller djavad@nkfast.se.",
+      "Notar Båstad ansvarar för försäljningen. Kontakta Johan Svahn, franchisetagare och reg. fastighetsmäklare, på 0735-18 14 70 eller johan.svahn@notar.se.",
   },
 ];

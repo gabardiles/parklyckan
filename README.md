@@ -25,16 +25,31 @@ Allt redigerbart innehåll ligger i `data/site.ts`:
 
 - `availability.soldCount` — styr announcement bar, hero-mätaren och
   lägenhetssektionen. **Uppdatera detta tal när lägenheter säljs.**
-- `remainingApartments` — placeholder-data. Ersätt med de faktiska
-  kvarvarande lägenheterna från Nadjafi & Kristensen.
+- `remainingApartments` — de kvarvarande lägenheterna från
+  lägenhetsväljaren.
 - `images` — pekar just nu mot originalsajtens bilder (hotlinkade).
   Flytta till `/public` eller egen CDN innan produktion.
 
 ## Att göra innan lansering
 
-- [ ] Koppla intresseformuläret till API-route/e-post eller CRM
-      (`components/sections/interest-form.tsx`)
+- [ ] Sätt env-variablerna för intresseformuläret i Vercel (se nedan)
 - [ ] Verifiera faktiskt antal sålda/kvarvarande lägenheter
 - [ ] Egna bildfiler istället för hotlinks
 - [ ] GTM/analytics om det ska behållas
 - [ ] Undersidor: Våra lägenheter, Webbkamera, Personuppgiftspolicy
+
+## Intresseformuläret
+
+Formuläret postar till `app/api/intresse/route.ts`, som skickar e-post via
+[Resend](https://resend.com). Mottagare styrs i `lib/seo.ts`
+(`SITE.interestForm`): till `bastad@notar.se`, kopia till
+`daniel@akselson.com`. Svar går direkt till den som anmält sig (Reply-To).
+
+Env-variabler (Vercel → Settings → Environment Variables):
+
+- `RESEND_API_KEY` — API-nyckel från Resend.
+- `INTEREST_FORM_FROM` — avsändare på en domän verifierad i Resend,
+  t.ex. `Parklyckan <intresse@parklyckan.se>`.
+
+Saknas någon av dem svarar API:t 503 och formuläret visar ett felmeddelande
+med mäklarens e-postadress.

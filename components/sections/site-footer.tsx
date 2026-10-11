@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { images } from "@/data/site";
+import { SITE } from "@/lib/seo";
 
 export function SiteFooter() {
   return (
@@ -31,16 +32,26 @@ export function SiteFooter() {
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground/60">
             Mäklare
           </p>
-          <p className="mt-3 font-medium">
-            Nadjafi & Kristensen Fastighetsförmedling
+          <p className="mt-3 font-medium">{SITE.broker.name}</p>
+          <p className="mt-1 text-primary-foreground/80">
+            {SITE.broker.agent}, {SITE.broker.agentTitle}
           </p>
-          <p className="mt-1 text-primary-foreground/80">Djavad Kristensen</p>
+          <p className="mt-1 text-primary-foreground/80">
+            {SITE.broker.address.streetAddress}, {SITE.broker.address.postalCode}{" "}
+            {SITE.broker.address.addressLocality}
+          </p>
           <p className="mt-1 flex flex-col text-primary-foreground/80">
-            <a href="tel:0735293900" className="inline-flex min-h-11 items-center hover:underline">
-              0735‑29 39 00
+            <a
+              href={`tel:${SITE.broker.telephone}`}
+              className="inline-flex min-h-11 items-center hover:underline"
+            >
+              {SITE.broker.telephoneDisplay}
             </a>
-            <a href="mailto:djavad@nkfast.se" className="inline-flex min-h-11 items-center hover:underline">
-              djavad@nkfast.se
+            <a
+              href={`mailto:${SITE.broker.email}`}
+              className="inline-flex min-h-11 items-center hover:underline"
+            >
+              {SITE.broker.email}
             </a>
           </p>
         </div>
@@ -66,8 +77,8 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link href="https://nkfast.se" className="hover:underline">
-                nkfast.se
+              <Link href={SITE.broker.url} className="hover:underline">
+                Notar Båstad
               </Link>
             </li>
           </ul>

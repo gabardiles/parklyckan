@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { images } from "@/data/site";
+import { SITE } from "@/lib/seo";
 
 export function Partners() {
   return (
@@ -12,34 +13,55 @@ export function Partners() {
             Mäklare
           </p>
           <h2 className="font-display text-2xl font-light leading-tight sm:text-3xl">
-            Nadjafi & Kristensen Fastighetsförmedling
+            {SITE.broker.name}
           </h2>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            Dina lokala mäklare som lyfter kvalitet i varje detalj och strävar
-            mot nöjda kunder och slutpriser som gynnar bägge parter — med
-            personligt engagemang på Bjärehalvön, i Ängelholm och på Mallorca.
+            Notar Båstad har en lång erfarenhet och stor kännedom om
+            Bjärehalvöns bostadsmarknad. För sjunde året i rad har Hemnet
+            utsett Notar till Årets Mäklarkedja. Ett tydligt bevis på att vårt
+            engagemang och vår arbetsinsats gör skillnad, både för våra kunder
+            och för bostadsmarknaden.
           </p>
           <div className="mt-8 flex items-center gap-5 rounded-lg border border-border p-5">
-            <div className="relative size-20 shrink-0 overflow-hidden rounded-full">
+            <div className="relative size-24 shrink-0 overflow-hidden rounded-full">
               <Image
                 src={images.broker}
-                alt="Djavad Kristensen"
+                alt={`${SITE.broker.agent}, ${SITE.broker.name}`}
                 fill
-                sizes="80px"
+                sizes="96px"
                 className="object-cover"
               />
             </div>
-            <div>
-              <p className="font-medium">Djavad Kristensen</p>
-              <p className="text-sm text-muted-foreground">Ansvarig mäklare</p>
+            <div className="min-w-0">
+              <p className="font-medium">{SITE.broker.agent}</p>
+              <p className="text-sm text-muted-foreground">
+                {SITE.broker.agentTitle}
+              </p>
               <p className="mt-1 text-sm">
-                <a href="tel:0735293900" className="text-primary underline-offset-4 hover:underline">
-                  0735‑29 39 00
+                <a
+                  href={`tel:${SITE.broker.telephone}`}
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  {SITE.broker.telephoneDisplay}
                 </a>{" "}
                 ·{" "}
-                <a href="mailto:djavad@nkfast.se" className="text-primary underline-offset-4 hover:underline">
-                  djavad@nkfast.se
+                <a
+                  href={`mailto:${SITE.broker.email}`}
+                  className="break-all text-primary underline-offset-4 hover:underline"
+                >
+                  {SITE.broker.email}
                 </a>
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {SITE.broker.address.streetAddress},{" "}
+                {SITE.broker.address.postalCode}{" "}
+                {SITE.broker.address.addressLocality} ·{" "}
+                <Link
+                  href={SITE.broker.url}
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  notar.se
+                </Link>
               </p>
             </div>
           </div>

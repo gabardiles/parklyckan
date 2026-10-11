@@ -5,6 +5,7 @@ import {
   availablePriceMin,
   facts,
   faqs,
+  images,
 } from "@/data/site";
 import type { Article } from "@/data/articles";
 
@@ -47,13 +48,23 @@ export function HomeJsonLd() {
         "@type": "RealEstateAgent",
         "@id": `${siteUrl}/#broker`,
         name: SITE.broker.name,
-        url: `${siteUrl}/`,
-        image: abs(SITE.ogImage),
+        url: SITE.broker.url,
+        image: abs(images.broker),
         telephone: SITE.broker.telephone,
-        email: SITE.broker.email,
+        email: SITE.broker.officeEmail,
+        employee: {
+          "@type": "Person",
+          name: SITE.broker.agent,
+          jobTitle: SITE.broker.agentTitle,
+          email: SITE.broker.email,
+          telephone: SITE.broker.telephone,
+        },
         areaServed: { "@type": "City", name: "Båstad" },
         priceRange: SITE.priceRange,
-        address: postalAddress,
+        address: {
+          ...postalAddress,
+          ...SITE.broker.address,
+        },
         sameAs: [...SITE.sameAs],
         makesOffer: {
           "@type": "Offer",
