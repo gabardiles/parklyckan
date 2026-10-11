@@ -22,38 +22,40 @@ export function Partners() {
             engagemang och vår arbetsinsats gör skillnad, både för våra kunder
             och för bostadsmarknaden.
           </p>
-          <div className="mt-8 flex items-center gap-5 rounded-lg border border-border p-5">
-            <div className="relative size-24 shrink-0 overflow-hidden rounded-full">
+          <div className="mt-8 overflow-hidden rounded-lg border border-border sm:flex">
+            <div className="relative aspect-[4/3] w-full shrink-0 bg-muted sm:aspect-[4/5] sm:w-52 lg:w-56">
               <Image
                 src={images.broker}
                 alt={`${SITE.broker.agent}, ${SITE.broker.name}`}
                 fill
-                sizes="96px"
-                className="object-cover"
+                sizes="(min-width: 1024px) 224px, (min-width: 640px) 208px, 100vw"
+                className="object-cover object-[50%_20%]"
               />
             </div>
-            <div className="min-w-0">
-              <p className="font-medium">{SITE.broker.agent}</p>
-              <p className="text-sm text-muted-foreground">
-                {SITE.broker.agentTitle}
-              </p>
-              <p className="mt-1 text-sm">
+            <div className="flex min-w-0 flex-col justify-center gap-4 p-5 sm:p-6">
+              <div>
+                <p className="text-lg font-medium">{SITE.broker.agent}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">
+                  {SITE.broker.agentTitle}
+                </p>
+              </div>
+              <div className="grid gap-1 text-sm">
                 <a
                   href={`tel:${SITE.broker.telephone}`}
-                  className="text-primary underline-offset-4 hover:underline"
+                  className="w-fit text-primary underline-offset-4 hover:underline"
                 >
                   {SITE.broker.telephoneDisplay}
-                </a>{" "}
-                ·{" "}
+                </a>
                 <a
                   href={`mailto:${SITE.broker.email}`}
-                  className="break-all text-primary underline-offset-4 hover:underline"
+                  className="w-fit break-all text-primary underline-offset-4 hover:underline"
                 >
                   {SITE.broker.email}
                 </a>
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {SITE.broker.address.streetAddress},{" "}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {SITE.broker.address.streetAddress}
+                <br />
                 {SITE.broker.address.postalCode}{" "}
                 {SITE.broker.address.addressLocality} ·{" "}
                 <Link
