@@ -8,14 +8,42 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { availability } from "@/data/site";
+import { SITE } from "@/lib/seo";
 
 export function InterestForm() {
-  const [status, setStatus] = React.useState<"idle" | "sent">("idle");
+  const [status, setStatus] = React.useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: wire up to API route / e-post (t.ex. Resend) eller CRM
-    setStatus("sent");
+    const form = new FormData(e.currentTarget);
+    const payload = {
+      ...Object.fromEntries(
+        ["name", "email", "phone", "rooms", "city", "housing", "message", "website"].map(
+          (key) => [key, String(form.get(key) ?? "")],
+        ),
+      ),
+      consent: form.get("consent") === "on",
+    };
+
+    setStatus("sending");
+    setErrorMessage(null);
+    try {
+      const res = await fetch("/api/intresse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+      const data = await res.json().catch(() => null);
+      setErrorMessage(typeof data?.error === "string" ? data.error : null);
+      setStatus("error");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -34,10 +62,12 @@ export function InterestForm() {
             bindande.
           </p>
           <div className="mt-8 border-l-2 border-accent pl-4 text-sm text-primary-foreground/70">
-            Frågor? Ring Djavad Kristensen, Nadjafi & Kristensen
-            Fastighetsförmedling, på{" "}
-            <a href="tel:0735293900" className="font-medium text-primary-foreground underline underline-offset-4">
-              0735‑29 39 00
+            Frågor? Ring {SITE.broker.agent}, {SITE.broker.name}, på{" "}
+            <a
+              href={`tel:${SITE.broker.telephone}`}
+              className="font-medium text-primary-foreground underline underline-offset-4"
+            >
+              {SITE.broker.telephoneDisplay}
             </a>
             .
           </div>
@@ -102,9 +132,14 @@ export function InterestForm() {
               <Label htmlFor="message">Meddelande</Label>
               <Textarea id="message" name="message" placeholder="Berätta gärna vad du letar efter…" />
             </div>
+            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+              <label htmlFor="website">Webbplats</label>
+              <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
             <label className="flex items-start gap-3 text-sm text-muted-foreground sm:col-span-2">
               <input
                 type="checkbox"
+                name="consent"
                 required
                 className="mt-0.5 size-4 shrink-0 accent-[#213253]"
               />
@@ -119,8 +154,33 @@ export function InterestForm() {
                 för hantering av mina personuppgifter. *
               </span>
             </label>
-            <Button type="submit" size="lg" className="sm:col-span-2">
-              Skicka intresseanmälan
+            {status === "error" && (
+              <p
+                role="alert"
+                className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive sm:col-span-2"
+              >
+                {errorMessage ?? (
+                  <>
+                    Något gick fel och anmälan kunde inte skickas. Försök igen eller
+                    mejla{" "}
+                    <a
+                      href={`mailto:${SITE.broker.officeEmail}`}
+                      className="underline underline-offset-4"
+                    >
+                      {SITE.broker.officeEmail}
+                    </a>
+                    .
+                  </>
+                )}
+              </p>
+            )}
+            <Button
+              type="submit"
+              size="lg"
+              disabled={status === "sending"}
+              className="sm:col-span-2"
+            >
+              {status === "sending" ? "Skickar…" : "Skicka intresseanmälan"}
             </Button>
           </form>
         )}

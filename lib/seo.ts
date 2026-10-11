@@ -31,10 +31,24 @@ export const SITE = {
   geo: { latitude: 56.4256, longitude: 12.8517 },
   priceRange: "2 404 700–3 987 750 kr",
   broker: {
-    name: "Nadjafi & Kristensen Fastighetsförmedling",
-    agent: "Djavad Kristensson",
-    telephone: "+46735293900",
-    email: "djavad@nkfast.se",
+    name: "Notar Båstad",
+    agent: "Johan Svahn",
+    agentTitle: "Franchisetagare / Reg. Fastighetsmäklare",
+    telephone: "+46735181470",
+    telephoneDisplay: "0735‑18 14 70",
+    email: "johan.svahn@notar.se",
+    officeEmail: "bastad@notar.se",
+    url: "https://www.notar.se/kontakta-oss/kontor/bastad",
+    address: {
+      streetAddress: "Köpmansgatan 91",
+      postalCode: "269 32",
+      addressLocality: "Båstad",
+    },
+  },
+  /** Every interest form submission goes to the broker, with a copy to the client. */
+  interestForm: {
+    to: "bastad@notar.se",
+    cc: "daniel@akselson.com",
   },
   developer: { name: "Wennerholms", url: "https://www.wennerholms.se/" },
   sameAs: ["https://www.instagram.com/brf_parklyckan/"],
@@ -48,7 +62,7 @@ export const SITE = {
     "lägenhet till salu Båstad",
     "inflyttningsklara lägenheter",
     "Wennerholms",
-    "Nadjafi & Kristensen",
+    "Notar Båstad",
   ],
 } as const;
 

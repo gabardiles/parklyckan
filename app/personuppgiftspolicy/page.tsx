@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/sections/site-footer";
 export const metadata: Metadata = {
   title: "Personuppgiftspolicy",
   description:
-    "Så hanterar Brf Parklyckan och Nadjafi & Kristensen Fastighetsförmedling dina personuppgifter när du anmäler intresse.",
+    "Så hanterar Brf Parklyckan och Notar Båstad dina personuppgifter när du anmäler intresse.",
   alternates: { canonical: "/personuppgiftspolicy" },
   robots: { index: true, follow: true },
 };
@@ -16,7 +16,7 @@ const sections: { heading: string; body: string[] }[] = [
   {
     heading: "Personuppgiftsansvarig",
     body: [
-      "När du anmäler intresse för Parklyckan behandlas dina personuppgifter av Nadjafi & Kristensen Fastighetsförmedling tillsammans med byggherren Wennerholms Gruppen. Har du frågor om behandlingen når du oss på djavad@nkfast.se eller 0735‑29 39 00.",
+      "När du anmäler intresse för Parklyckan behandlas dina personuppgifter av Notar Båstad (Köpmansgatan 91, 269 32 Båstad) tillsammans med Brf Parklyckan och byggherren Wennerholms Gruppen. Har du frågor om behandlingen når du oss på bastad@notar.se eller 0735‑18 14 70.",
     ],
   },
   {
@@ -46,7 +46,7 @@ const sections: { heading: string; body: string[] }[] = [
   {
     heading: "Delning av uppgifter",
     body: [
-      "Dina uppgifter delas endast mellan mäklaren och byggherren för att hantera din intresseanmälan. Vi säljer aldrig dina personuppgifter vidare till tredje part.",
+      "Dina uppgifter delas endast mellan mäklaren, Brf Parklyckan och byggherren för att hantera din intresseanmälan. Intresseanmälan skickas via e‑post till mäklaren med en kopia till föreningens kontaktperson. Vi säljer aldrig dina personuppgifter vidare till tredje part.",
     ],
   },
 ];
