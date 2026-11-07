@@ -26,14 +26,14 @@ export type Apartment = {
 
 /** Lediga lägenheter — hämtade från lägenhetsväljaren. */
 export const remainingApartments: Apartment[] = [
-  { id: "1-1603", rooms: 2, sqm: 55.3, floor: 7, price: 2669800, fee: 3249, status: "ledig" },
-  { id: "1-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2555150, fee: 3255, status: "ledig" },
-  { id: "2-1603", rooms: 2, sqm: 51.5, floor: 7, price: 2453200, fee: 3026, status: "ledig" },
-  { id: "2-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2404700, fee: 3255, status: "ledig" },
-  { id: "2-1706", rooms: 2, sqm: 55.4, floor: 8, price: 2628200, fee: 3255, status: "ledig" },
-  { id: "2-1801", rooms: 3, sqm: 71.7, floor: 9, price: 3987750, fee: 4213, status: "ledig" },
-  { id: "2-1803", rooms: 2, sqm: 51.5, floor: 9, price: 2996750, fee: 3026, status: "ledig" },
-  { id: "2-1806", rooms: 2, sqm: 55.4, floor: 9, price: 2946650, fee: 3255, status: "ledig" },
+  { id: "1-1603", rooms: 2, sqm: 55.3, floor: 7, price: 2695000, fee: 3380, status: "ledig" },
+  { id: "1-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2550000, fee: 3386, status: "ledig" },
+  { id: "2-1603", rooms: 2, sqm: 51.5, floor: 7, price: 2450000, fee: 3148, status: "ledig" },
+  { id: "2-1606", rooms: 2, sqm: 55.4, floor: 7, price: 2400000, fee: 3387, status: "ledig" },
+  { id: "2-1706", rooms: 2, sqm: 55.4, floor: 8, price: 2625000, fee: 3387, status: "ledig" },
+  { id: "2-1801", rooms: 3, sqm: 71.7, floor: 9, price: 3985000, fee: 4383, status: "ledig" },
+  { id: "2-1803", rooms: 2, sqm: 51.5, floor: 9, price: 2995000, fee: 3148, status: "ledig" },
+  { id: "2-1806", rooms: 2, sqm: 55.4, floor: 9, price: 2945000, fee: 3386, status: "ledig" },
 ];
 
 // Ranges derived from the available apartments — drive the key-facts block.
