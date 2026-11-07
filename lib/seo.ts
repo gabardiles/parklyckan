@@ -29,7 +29,6 @@ export const SITE = {
     addressCountry: "SE",
   },
   geo: { latitude: 56.4256, longitude: 12.8517 },
-  priceRange: "2 404 700–3 987 750 kr",
   broker: {
     name: "Notar Båstad",
     agent: "Johan Svahn",

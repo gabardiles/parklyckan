@@ -3,6 +3,7 @@ import {
   availability,
   availablePriceMax,
   availablePriceMin,
+  availablePriceRange,
   facts,
   faqs,
   images,
@@ -60,7 +61,7 @@ export function HomeJsonLd() {
           telephone: SITE.broker.telephone,
         },
         areaServed: { "@type": "City", name: "Båstad" },
-        priceRange: SITE.priceRange,
+        priceRange: availablePriceRange,
         address: {
           ...postalAddress,
           ...SITE.broker.address,
